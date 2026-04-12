@@ -3,6 +3,50 @@ title Anti Cheat Bypass - Made By Eray
 color 0b
 chcp 65001 >nul
 
+:: Yönetici kontrolü
+net session >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [!] LÜTFEN YÖNETİCİ OLARAK ÇALIŞTIRIN!
+    pause
+    exit
+)
+
+Color B
+:menu
+cls
+echo.
+echo  ███████╗ █████╗ ██████╗ ████████╗██╗  ██╗ ██████╗ ██╗    ██╗ █████╗ ██╗  ██╗███████╗
+echo  ██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██║  ██║██╔═══██╗██║    ██║██╔══██╗██║ ██╔╝██╔════╝
+echo  █████╗  ███████║██████╔╝   ██║   ███████║██║   ██║██║    ██║███████║█████╔╝ █████╗  
+echo  ██╔══╝  ██╔══██║██╔══██╗   ██║   ██╔══██║██║▄▄ ██║██║    ██║██╔══██║██╔═██╗ ██╔══╝  
+echo  ███████╗██║  ██║██║  ██║   ██║   ██║  ██║╚██████╔╝╚██████╔╝ ██║  ██║██║  ██╗███████╗
+echo  ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝ ╚══▀▀═╝  ╚═════╝  ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
+echo. 
+echo  ╔═══════════════════════════════════════════════════════════════════╗
+echo  ║           Earthquake Anti Cheat Bypass - Made By Eray             ║
+echo  ╠═══════════════════════════════════════════════════════════════════╣
+echo  ║   [1] Anti Cheat Bypass                                           ║
+echo  ║   [2] FiveM Önbellek Ve Log Temizle                               ║
+echo  ║   [3] Proje Bilgileri                                             ║
+echo  ║   [4] Bypass Nasıl Yapılır?                                       ║
+echo  ║   [0] Çıkış                                                       ║
+echo  ╚═══════════════════════════════════════════════════════════════════╝
+echo.
+set /p secim=" Seçiminizi yapın: " 
+
+if "%secim%"=="1" goto finalclean
+if "%secim%"=="2" goto fivem
+if "%secim%"=="3" goto proje
+if "%secim%"=="4" goto nasil
+if "%secim%"=="0" exit
+goto menu
+
+:finalclean
+cls
+echo [!] Anti Cheat Bypass Başlatıldı Hiçbir İz Bırakılmıyor.
+echo.
+
+
 echo [-] USB Tak-Çıkar ve Sürücü logları temizleniyor...
 reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USBSTOR" /f >nul 2>&1
 reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB" /f >nul 2>&1
@@ -236,4 +280,44 @@ echo [!] TÜM İZLER BAŞARIYLA SİLİNDİ! AntiCheat BYPASS TAMAMLANDI.
 echo [-] RAM üzerindeki kalıntılar için Explorer yenileniyor... (Ekran Gidip Gelebilir)
 taskkill /f /im explorer.exe >nul 2>&1
 start explorer.exe
+echo [?] Ana menüye dönmek için bir tuşa basın...
+pause >nul
+goto menu
+
+:fivem
+cls
+echo [!] FiveM temizliği yapılıyor...
+taskkill /f /im FiveM.exe >nul 2>&1
+rmdir /s /q "%LocalAppData%\FiveM\FiveM.app\cache" >nul 2>&1
+rmdir /s /q "%LocalAppData%\FiveM\FiveM.app\logs" >nul 2>&1
+rmdir /s /q "%LocalAppData%\FiveM\FiveM.app\crashes" >nul 2>&1
+echo.
+timeout /t 1 >nul
+echo FiveM Cache Silindi
+timeout /t 1 >nul
+echo Fivem Logları Silindi
+echo [OK] FiveM Önbellek, Loglar ve Crash dosyaları silindi!
 pause
+goto menu
+
+:proje
+cls
+echo Earthquake Ocean Bypass v14.0
+echo Yapımcı: Eray Discord : ua_eray
+echo Bu Araç Sadece Ocean İçin Değil Napse,Storm Gibi Araçlar İçinde Geçerlidir
+pause
+goto menu
+
+:nasil
+cls
+echo ============================================================================
+echo                          BYPASS NASIL YAPILIR?
+echo ============================================================================
+echo.
+echo.
+echo Bypass İşlemi Yapmak İçin Öncelikle Hilenizi Usbye Atın Usbye attıktan sonra kullanırken 
+echo Bir Durum Olursa (Kontrole Çağrılma gibi) Hemen Hileyi Kapatın Usbyi Çıkarın Ve Ocean Bypass Yapın
+echo                                  -Made By Eray-
+echo Veya Earthquake Loader Kullanın :)
+pause
+goto menu
