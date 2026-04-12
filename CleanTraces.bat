@@ -2,7 +2,7 @@
 title Anti Cheat Bypass - Made By Eray
 color 0b
 chcp 65001 >nul
-
+cd /d "%~dp0"
 :: Yönetici kontrolü
 net session >nul 2>&1
 if %errorlevel% neq 0 (
@@ -80,12 +80,11 @@ reg delete "HKLM\SOFTWARE\Microsoft\RADAR\HeapLeakDetection\DiagnosedApplication
 
 
 echo [-] Defender Tehdit Logları tamamen siliniyor...
-del /s /f /q "C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service\*" >nul 2>&1
-rmdir /s /q "C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service" >nul 2>&1
+powershell -Command "Remove-Item 'C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service\*' -Recurse -Force -ErrorAction SilentlyContinue" >nul 2>&1
 
 
 echo [-] Çalıştır geçmişi temizleniyor...
-reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /f
+reg delete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /f >nul 2>&1
 
 
 echo [-] Klasör hafızası (ShellBags) temizleniyor...
@@ -94,7 +93,7 @@ reg delete "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shel
 
 
 echo [-] AppReadWriteCounter verileri temizleniyor...
-del /q /f "%LocalAppData%\Microsoft\Windows\ActivityHistory\*"
+if exist "%LocalAppData%\Microsoft\Windows\ActivityHistory\*" del /q /f "%LocalAppData%\Microsoft\Windows\ActivityHistory\*" >nul 2>&1
 
 
 echo [-] Sistem logları, DNS ve USN Journal sıfırlanıyor...
@@ -185,7 +184,7 @@ for %%i in (
 ) do reg delete %%i /f >nul 2>&1
 echo.
 
-echo [-] AppSwitched & FeatureUsage Kazınıyor...
+echo [-] AppSwitched  FeatureUsage Kazınıyor...
 :: 1. Uygulama Odaklanma Geçmişi (Hangi pencere kaç saniye açık kaldı?)
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\AppSwitched" /f >nul 2>&1
 reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FeatureUsage\ShowJumpView" /f >nul 2>&1
