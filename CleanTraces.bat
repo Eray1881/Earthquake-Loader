@@ -174,14 +174,14 @@ echo.
 if exist "settings" del /f /q "settings" >nul 2>&1
 echo.
 
+:: Eskisini silip yerine bunu yapıştır:
+:: Yanlış olan o parantezli satırı tamamen sil ve sadece temizleme komutlarını bırak:
 echo [-] Derin izler temizleniyor...
-for %%i in (
-    "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache"
-    "HKLM\SYSTEM\CurrentControlSet\Services\bam\UserSettings"
-    "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist"
-    "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache"
-    "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store"
-) do reg delete %%i /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache" /f >nul 2>&1
+reg delete "HKLM\SYSTEM\CurrentControlSet\Services\bam\UserSettings" /f >nul 2>&1
+reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist" /f >nul 2>&1
+reg delete "HKCU\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\MuiCache" /f >nul 2>&1
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppCompatFlags\Compatibility Assistant\Store" /f >nul 2>&1
 echo.
 
 echo [-] AppSwitched  FeatureUsage Kazınıyor...
@@ -278,6 +278,7 @@ echo [!] TÜM İZLER BAŞARIYLA SİLİNDİ! AntiCheat BYPASS TAMAMLANDI.
 
 echo [-] RAM üzerindeki kalıntılar için Explorer yenileniyor... (Ekran Gidip Gelebilir)
 taskkill /f /im explorer.exe >nul 2>&1
+timeout /t 2 /nobreak >nul
 start explorer.exe
 echo [?] Ana menüye dönmek için bir tuşa basın...
 pause >nul
